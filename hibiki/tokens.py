@@ -43,6 +43,9 @@ class Header(Token):
     """
     value: str
 
+    def render(self) -> str:
+        return f"[{self.value}]\n"
+
 
 @dataclasses.dataclass
 class Char(Token):
@@ -53,6 +56,11 @@ class Char(Token):
     everything else not explicitly defined here.
     """
     value: str
+
+
+@dataclasses.dataclass
+class NewLine(Char):
+    value: str = "\n"
 
 
 @dataclasses.dataclass
@@ -77,25 +85,37 @@ class Section(Token):
 
     def __init__(self, start, end, header, tokens):
         
+        # If a header's value is not in the list of all headers,
+        # then a section with that header name has never been defined.
         if header.value not in self.ALL:
             super().__init__(start, end)
             self.header = header
             self.tokens = tokens
 
-            if not tokens:
+            # If this section does not have any tokens associated with it, then
+            # it's as though it's been typed with its header alone. This is
+            # only valid if the header's name matches a previously defined
+            # header, which we just proved false, so raise a DefinitionError.
+            if all([isinstance(token, NewLine) for token in tokens]):
                 raise DefinitionError(f"Empty body reference to undefined header '{header.value}'")
 
             self.ALL[header.value] = self
+        
+        # If a header's value IS in this list of all headers,
+        # then a section with that header name HAS been defined before.
         else:
-            if tokens:
-                print(tokens)
+            # The only way this is allowed is if the header contains no tokens,
+            # as if referring to a previously defined section. If the section
+            # has tokens, then you're overwriting a previous section, and this
+            # is not allowed.
+            if not all([isinstance(token, NewLine) for token in tokens]):
                 raise DefinitionError(f"Redefinition of previously defined header '{header.value}'")
+            
             tokens = self.ALL[header.value].tokens
 
             super().__init__(start, end)
             self.header = header
             self.tokens = tokens
-        
 
     def __repr__(self) -> str:
         return f"<Section [{self.header.value}]>"
