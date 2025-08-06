@@ -1,7 +1,7 @@
 [project]
 name = "hibiki"
-version = "0.1.0"
-requires-python = ">=3.13"
+version = "0.2.0"
+requires-python = ">=3.10"
 description = "A language specifically to make writing musical tabs easier and more fun."
 authors = [
     {name = "Taira", email = "tairabiteru@users.noreply.github.com"}

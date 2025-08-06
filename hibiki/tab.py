@@ -1,8 +1,10 @@
 from __future__ import annotations
+import re
 import typing as t
 
 from .stanza import Stanza
 from .errors import EmptyStanza, RedefinedStanza, StanzaSyntaxError
+from .utils import replace_all
 
 
 class Tab:
@@ -17,13 +19,42 @@ class Tab:
     FILLED_SECTION_REGEX = r"\[.+\]\n(.+\n)+"
     EMPTY_SECTION_REGEX = r"\[.+\]\n{2}"
     HEADER_REGEX = r"\[.+\]\n"
+    RECALL_SAVE_REGEX = r"\(#?=\w+\)$"
+    RECALL_OUT_REGEX = r"\(@\w+\)"
 
     def __init__(self, text: str):
         self.text = text
+        self._recalls = {}
 
         # Hibiki tabs must end with two newlines.
         if not self.text.endswith("\n\n"):
             self.text += "\n\n"
+    
+    def pre_process(self) -> t.List[str]:
+        """
+        Pre-processor
+        
+        This function effectively alters the text in-situ before rendering.
+        Mainly used for recalls at the moment, but it could in theory be used
+        for more in the future.
+        """
+        out = []
+        for line in self.text.split("\n"):
+            phantom = False
+
+            match: t.Match[str] | None = re.search(self.RECALL_SAVE_REGEX, line)
+
+            if match:
+                line = line.replace(match.group(), "")
+                var_name: str = replace_all(match.group(), "(=#)\n", "")
+                self._recalls[var_name] = line
+                if "#" in match.group():
+                    phantom = True
+
+            if not phantom:
+                out.append(line)
+        return out
+
 
     def get_stanzas(self) -> t.List[Stanza]:
         """Obtain a list of stanzas in the tablature."""
@@ -42,8 +73,15 @@ class Tab:
         # Buffer to append stanzas to.
         stanzas = []
 
-        # Split text by newlines
-        for line in self.text.split("\n"):
+        # Obtain lines from pre-processor
+        for line in self.pre_process():
+            # For recall matches.
+            match = re.search(self.RECALL_OUT_REGEX, line)
+
+            # If one exists, we substitute it out for the recalled line
+            if match:
+                var_name: str = replace_all(match.group(), "(@)\n", "")
+                line = re.sub(self.RECALL_OUT_REGEX, self._recalls[var_name], line)
 
             if in_stanza is True:
                 # If we're in a stanza, a line can't begin with a [, that's a syntax error.

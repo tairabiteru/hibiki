@@ -29,6 +29,7 @@ class Stanza:
     def __init__(self, text: str, starting_line: int):
         self.text: str = text
         self.starting_line: int = starting_line
+        self._recalls = {}
 
     @classmethod
     def from_match(cls, match: re.Match, starting_line: int) -> Stanza:
@@ -67,7 +68,6 @@ class Stanza:
         # We add 1 because the first line appears after the
         # first line of the stanza.
         line_num = self.starting_line + 1
-
 
         for line in filter(lambda e: e != "", self.text.split("\n")[1:]):
             line = line.strip()
@@ -114,6 +114,9 @@ class Space:
 
     def __str__(self) -> str:
         return self.amount * ' '
+    
+    def __repr__(self) -> str:
+        return f"<Space: {self.amount}>"
     
     @property
     def tab_repr(self) -> str:
@@ -325,10 +328,10 @@ class Line:
                 chord_line += chords[i].tab_repr
                 lyric_line += lyrics[i]
         
-        return chord_line, lyric_line
+        return chord_line.rstrip(), lyric_line.rstrip()
     
     def render(self) -> str:
         # This function mainly serves as a shortcut to render chords and lines
         # together.
         chords, lyrics = self.render_split()
-        return f"{chords}\n{lyrics}"
+        return f"{chords}\n{lyrics}\n"
