@@ -4,7 +4,7 @@ from .stanza import Stanza, Space, Line
 from .tab import Tab
 
 
-__VERSION__ = "0.1.0"
+__VERSION__ = "0.2.0"
 __AUTHOR__ = "taira"
 
 
