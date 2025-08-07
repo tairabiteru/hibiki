@@ -1,3 +1,5 @@
+# 0.3.1
+- Corrected import error which prevented use of the module. (Oops lol)
 # 0.3.0
 - Removed "phantom recalls". They can be done all the same as normal recalls by simply defining them outside of the body of a stanza.
 - Added missing docstrings for `hibiki.Chord`.

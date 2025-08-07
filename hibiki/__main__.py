@@ -1,4 +1,4 @@
-from tab import Tab
+from hibiki import Tab
 import sys
 
 

@@ -2,9 +2,9 @@ from __future__ import annotations
 import re
 import typing as t
 
-from stanza import Stanza
-from errors import EmptyStanza, RedefinedStanza, StanzaSyntaxError
-from utils import replace_all
+from .stanza import Stanza
+from .errors import EmptyStanza, RedefinedStanza, StanzaSyntaxError
+from .utils import replace_all
 
 
 class Tab:
