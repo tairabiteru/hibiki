@@ -44,6 +44,17 @@ class Chord:
     
     def __repr__(self) -> str:
         return f"<Chord: {self.symbol}>"
+    
+    @property
+    def note(self) -> str:
+        if self.chucked or self.palm_muted:
+            return self.symbol[:-1]
+        elif self.sustained:
+            return self.symbol[1:-1]
+        elif self.non_chord:
+            return "N.C."
+        else:
+            return self.symbol
 
     def apply_modifiers(self) -> None:
         """

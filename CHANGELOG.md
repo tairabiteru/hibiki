@@ -1,3 +1,5 @@
+# 0.2.1
+- Added the `note` property to `Chord`. This contains only the note of the chord, not any modifiers.
 # 0.2.0
 - Introduced "recalls" which allows a line to be duplicated entirely at a different point in the song.
 ```
