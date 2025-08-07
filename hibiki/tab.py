@@ -2,9 +2,9 @@ from __future__ import annotations
 import re
 import typing as t
 
-from .stanza import Stanza
-from .errors import EmptyStanza, RedefinedStanza, StanzaSyntaxError
-from .utils import replace_all
+from stanza import Stanza
+from errors import EmptyStanza, RedefinedStanza, StanzaSyntaxError
+from utils import replace_all
 
 
 class Tab:
@@ -19,7 +19,7 @@ class Tab:
     FILLED_SECTION_REGEX = r"\[.+\]\n(.+\n)+"
     EMPTY_SECTION_REGEX = r"\[.+\]\n{2}"
     HEADER_REGEX = r"\[.+\]\n"
-    RECALL_SAVE_REGEX = r"\(#?=\w+\)$"
+    RECALL_SAVE_REGEX = r"\(=\w+\)$"
     RECALL_OUT_REGEX = r"\(@\w+\)"
 
     def __init__(self, text: str):
@@ -40,19 +40,14 @@ class Tab:
         """
         out = []
         for line in self.text.split("\n"):
-            phantom = False
-
             match: t.Match[str] | None = re.search(self.RECALL_SAVE_REGEX, line)
 
             if match:
                 line = line.replace(match.group(), "")
                 var_name: str = replace_all(match.group(), "(=#)\n", "")
                 self._recalls[var_name] = line
-                if "#" in match.group():
-                    phantom = True
-
-            if not phantom:
-                out.append(line)
+            
+            out.append(line)
         return out
 
 

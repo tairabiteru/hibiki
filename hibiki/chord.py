@@ -18,6 +18,8 @@ class Chord:
         The symbol comprising the chord. This is distinct from the text as the
         it contains the original text, whereas the symbol can be modified by
         Hibiki's modifier system.
+    note: str:
+        The note's symbol (excluding modifiers)
     sustained: bool
         Whether or not the chord is a sustained chord.
     chucked: bool

@@ -1,7 +1,7 @@
 import typing as t
 
 if t.TYPE_CHECKING:
-    from .stanza import Stanza, Line
+    from stanza import Stanza, Line
 
 class HibikiError(Exception):
     """

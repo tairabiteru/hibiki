@@ -2,9 +2,9 @@ from __future__ import annotations
 import re
 import typing as t
 
-from .utils import replace_all
-from .chord import Chord
-from .errors import ChordSyntaxError
+from utils import replace_all
+from chord import Chord
+from errors import ChordSyntaxError
 
 
 class Stanza:
