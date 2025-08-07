@@ -1,3 +1,7 @@
+# 0.3.0
+- Removed "phantom recalls". They can be done all the same as normal recalls by simply defining them outside of the body of a stanza.
+- Added missing docstrings for `hibiki.Chord`.
+- Added basic command line handling to pass in files.
 # 0.2.1
 - Added the `note` property to `Chord`. This contains only the note of the chord, not any modifiers.
 # 0.2.0
