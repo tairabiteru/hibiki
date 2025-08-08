@@ -60,7 +60,7 @@ class TestStanza:
 
 
 class TestTab:
-    inpt = "{C} {A} {D}(#=prog1)\n\n[Verse 1]\nThis {C}is a {Am}song\nWith (@prog1)chords re{Am}called {A}\nWith (@prog1)chords re{Am}called {A}"
+    inpt = "{C} {A} {D}(=prog1)\n\n[Verse 1]\nThis {C}is a {Am}song\nWith (@prog1)chords re{Am}called {A}\nWith (@prog1)chords re{Am}called {A}"
 
     def test_recall_len(self):
         tab = Tab(self.inpt)

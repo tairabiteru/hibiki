@@ -86,7 +86,7 @@ class StanzaSyntaxError(HibikiError):
     
     Attributes
     ----------
-    line: Line
+    line_num: int
         The line where the syntax error can be found.
     reason: str
         The reason for the syntax error.

@@ -1,3 +1,6 @@
+# 0.3.2
+- Updated readme.
+- Corrected docstring in `hibiki.StanzaSyntaxError`.
 # 0.3.1
 - Corrected import error which prevented use of the module. (Oops lol)
 # 0.3.0

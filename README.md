@@ -109,7 +109,48 @@ C F C F
 C F C F
 
 ```
+Hibiki also has a powerful feature called **recall**. This allows individual lines to be saved as "variables" which can then be recalled later in the song.
+```
+[Intro]
+{C}I'm {Am}a recall!(=a_line)
 
+[Outro]
+Remember me? (@a_line)
+```
+```
+[Intro]
+C   Am
+I'm a recall!
+
+[Outro]
+             C     Am
+Remember me? I'm a recall!
+```
+Using a recall outside of a stanza allows you to declare information without it being rendered. This is called a **phantom recall**. It's useful when you, for example, have a chord progression that repeats all over a song, but isn't found anywhere by itself.
+```
+{Csus4} {C} {Csus2} {C}(=chords)
+
+[Verse 1]
+{C}Night (@chords) {Bb}fal{F}ls and I'm a{C}lone (@chords) {Bb} {F}
+```
+```
+[Verse 1]
+C     Csus4 C Csus2 C Bb F           C    Csus4 C Csus2 C Bb F
+Night                 falls and I'm alone
+```
+
+## So like, why'd you do this?
+*sigh*
+
+Because "music is a game you play with yourself where the second you stop paying attention, you lose."
+
+As it turns out, I'm *really* bad at paying attention. Anything - literally *anything* - I can do to make me focus more helps me, and that includes not being distracted by weird looking tabs. Of course as with learning any instrument, practice makes perfect, but I've found long ago that true greatness comes from passion. To skip the poetry, I have to *want* to play my ukulele. I have to *want* to learn weird chords. Does this help me do that? Directly, no, not really, but indirectly, yes. I love playing music but to play music, I need music to read. That means writing tabs out, and I *loathe* the process of writing them out. This makes that process not as bad, and a bit like programming (which I also like) and thus encourages me to write more tabs, and writing more tabs means more playing which means more practice which means personal growth, okay?
+
+There is a second reason for this. In truth, this library - while useful - was not the final goal. Most of my tabs are on paper, and this is annoying to me because paper is bulky and wears out and can get lost, etc... So digitize them, obviously. But for a bunch of reasons I won't go into, that carries baggage with it too. This is a situation where I want an *extreme* level of control over a piece of software and...well, "if'n ya ain't got the right tool for the job, you're gonna might have to need to make 'er!" Hibiki acts as a library first and foremost, and that's because my personal implementation of this actually *extends* the functionality of Hibiki to create a web rendering system.
+
+"So just because of the ridiculous level of control you want over the creation of musical tabs, you created your own quasi-tokenizer and language just to re-arrange some words on a page for you?"
+
+Yeah, pretty much.
 ## Use
 ```Python
 import hibiki
@@ -130,8 +171,12 @@ You can also use files:
 tab.from_path("bohemian_rhapsody.hb")
 print(tab.render())
 ```
+Hibiki can also be invoked as a program in and of itself, directly from the command line:
+```
+python -m hibiki <somefile.hb>
+```
 
 ## FAQ
 - What's the meaning behind the name?
-  - "hibiki" is a Japanese word meaning "echo" or "reverberation."
+  - "hibiki" is a Japanese word meaning "echo" or "reverberation." This is adjacent to Hibiki's core function: ***echoing*** parts of tablature so you don't have to write them out yourself. Also "reverb" is music adjacent too
 
