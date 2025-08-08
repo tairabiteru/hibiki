@@ -23,7 +23,7 @@ class EmptyStanza(HibikiError):
 
     Hibiki allows auto-duplication of stanzas when they have already been
     defined previously. However, this of course can only be done if a
-    the section in question *has* been previously defined. If it hasn't,
+    the stanza in question *has* been previously defined. If it hasn't,
     Hibiki throws this error.
     
     Attributes
@@ -59,8 +59,6 @@ class RedefinedStanza(HibikiError):
 
 class ChordSyntaxError(HibikiError):
     """
-    Thrown when syntax error occurs with a chord.
-
     This error is thrown when some syntax error occurs with a chord. This is
     primarily chords with unclosed {braces}.
     
@@ -79,10 +77,7 @@ class ChordSyntaxError(HibikiError):
 
 class StanzaSyntaxError(HibikiError):
     """
-    Thrown when syntax error occurs with a chord.
-
-    This error is thrown when some syntax error occurs with a chord. This is
-    primarily chords with unclosed {braces}.
+    Thrown when syntax error occurs with a stanza.
     
     Attributes
     ----------
