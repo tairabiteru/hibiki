@@ -1,7 +1,43 @@
 # Hibiki
-A language specifically to make writing musical tabs easier and more fun.
+A language specifically to make writing musical tabs easier and more fun by turning the act of writing tabs into programming. Hibiki is designed to take "tab source code" like this:
+```
+took the {G}midnight train goin' {G#m}anywhere{A}(=train)
 
-## The Problem With Writing Tabs
+[Intro]
+{E} {B} {C#m} {A}
+{E} {G} {G#m} {A}
+
+[Verse 1]
+{E}  Just a {B}small town girl, {C#m} livin' in a {A}lonely world
+{E}  She (@train)
+{E}  Just a {B}city boy, {C#m} born and raised in {A}South Detroit
+{E}  (@train)
+
+[Intro]
+```
+and turn it into this:
+```
+[Intro]
+E B C#m A
+
+E B G#m A
+
+[Verse 1]
+E        B                C#m             A
+  Just a small town girl,     livin' in a lonely world
+E              B                    G#m     A
+  She took the midnight train goin' anywhere
+E        B        C#m                    A
+  Just a city boy,    born and raised in South Detroit
+E             B                    G#m     A
+  He took the midnight train goin' anywhere
+
+[Intro]
+E B C#m A
+
+E B G#m A
+```
+## Why
 I very much enjoy playing the ukulele, and as a result, I often find myself writing my own tablature. While I like the process of discovering the correct chords, what I do *not* like is the act of writing the tabs themselves. I prefer my tabs to be written in a very particular manner:
 ```
 [Intro]
@@ -41,27 +77,7 @@ No e{A#}scape from reality
 Well, that solves the chord spacing problem...but man, that looks ugly. What we really need is the best of both worlds. What if we could translate between the two?
 
 ## Enter, Hibiki
-Hibiki is a...markup language? Sure, let's go with that. It is designed to basically do exactly what I described, with a few extra special features added in. Hibiki takes in "source code" like this:
-```
-[Intro]
-{Gm7}Is this the real life
-{C7}Is this just fantasy
-{F7}Caught in a {Cm7}land{F7}slide
-No e{A#}scape from reality
-```
-and turns it into tabs that look like this:
-```
-[Intro]
-Gm7
-Is this the real life
-C7
-Is this just fantasy
-F7      Cm7 F7
-Caught in a landslide
-    A#
-No escape from reality
-```
-Because we're writing inline with the lyrics, we don't have to worry about spacing anymore. If a chord is wrong, it can just be changed. In fact, Hibiki is also capable of re-rendering previous sections. As an example, this:
+Hibiki is a...markup language? Sure, let's go with that. It is designed to basically do exactly what I described, with a few extra special features added in. Because we're writing inline with the lyrics, we don't have to worry about spacing anymore. If a chord is wrong, it can just be changed. In fact, Hibiki is also capable of re-rendering previous sections. As an example, this:
 ```
 [Intro]
 {Gm7}Is this the real life
@@ -138,19 +154,6 @@ Using a recall outside of a stanza allows you to declare information without it 
 C     Csus4 C Csus2 C Bb F           C    Csus4 C Csus2 C Bb F
 Night                 falls and I'm alone
 ```
-
-## So like, why'd you do this?
-*sigh*
-
-Because "music is a game you play with yourself where the second you stop paying attention, you lose."
-
-As it turns out, I'm *really* bad at paying attention. Anything - literally *anything* - I can do to make me focus more helps me, and that includes not being distracted by weird looking tabs. Of course as with learning any instrument, practice makes perfect, but I've found long ago that true greatness comes from passion. To skip the poetry, I have to *want* to play my ukulele. I have to *want* to learn weird chords. Does this help me do that? Directly, no, not really, but indirectly, yes. I love playing music but to play music, I need music to read. That means writing tabs out, and I *loathe* the process of writing them out. This makes that process not as bad, and a bit like programming (which I also like) and thus encourages me to write more tabs, and writing more tabs means more playing which means more practice which means personal growth, okay?
-
-There is a second reason for this. In truth, this library - while useful - was not the final goal. Most of my tabs are on paper, and this is annoying to me because paper is bulky and wears out and can get lost, etc... So digitize them, obviously. But for a bunch of reasons I won't go into, that carries baggage with it too. This is a situation where I want an *extreme* level of control over a piece of software and...well, "if'n ya ain't got the right tool for the job, you're gonna might have to need to make 'er!" Hibiki acts as a library first and foremost, and that's because my personal implementation of this actually *extends* the functionality of Hibiki to create a web rendering system.
-
-"So just because of the ridiculous level of control you want over the creation of musical tabs, you created your own quasi-tokenizer and language just to re-arrange some words on a page for you?"
-
-Yeah, pretty much.
 ## Use
 ```Python
 import hibiki
@@ -177,6 +180,22 @@ python -m hibiki <somefile.hb>
 ```
 
 ## FAQ
-- What's the meaning behind the name?
+- **This seems a lot more complicated than just writing out tabs.**
+  - That's not a question, but fine. I'll elaborate. I realize the intersection of the set of people who play music and the set of all people who program is pretty small, but **I'm** in that intersection, and regarding music, I'd once heard it said,
+
+    **"Music is a game you play with yourself where the second you stop paying attention, you lose."**
+
+    As it happens, I'm really bad at paying attention. Thusly, having neat and tidy tabs is ***SUPER*** important to me. The level of control I want over my tabs is far above what any pre-built solution I've seen out there can provide, and...well, "If'n ya ain't got the right tool for the job, you're gonna might have to need to make 'er!"
+
+    Thus, Hibiki as a concept was born.
+- **So you made your own quasi-tokenizer just to write musical tabs?**
+  - Yeah, pretty much.
+
+    I mean, there's slightly more to it that that: I believe the number one ingredient in success is passion. To skip the poetry, I want to be good at playing the ukulele. To get good, it is my belief that I have to *WANT* it. Obviously, but the realm of "wanting it" doesn't stop at the act itself. Taking steps to do things which *encourage me* to practice is also important. 
+
+    Basically, Hibiki helps me write tabs. It helps my programmer brain not be so upset at how badly I'm repeating myself when writing tabs. Because I'm more likely to write tabs using Hibiki, I'll end up creating more tabs to read. Since I have more tabs to read, I'll play more, which means I'll be practicing more, which means personal growth. 
+
+    Writing tabs this way will definitely not appeal to everyone, especially those who don't want to lean on any software to write tabs. But to me, the most important aspect of Hibiki is its appeal to ***ME***. If anyone else finds it useful too, cool. Enjoy.
+- **What's the meaning behind the name?**
   - "hibiki" is a Japanese word meaning "echo" or "reverberation." This is adjacent to Hibiki's core function: ***echoing*** parts of tablature so you don't have to write them out yourself. Also "reverb" is music adjacent too.
 
