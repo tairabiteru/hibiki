@@ -178,5 +178,5 @@ python -m hibiki <somefile.hb>
 
 ## FAQ
 - What's the meaning behind the name?
-  - "hibiki" is a Japanese word meaning "echo" or "reverberation." This is adjacent to Hibiki's core function: ***echoing*** parts of tablature so you don't have to write them out yourself. Also "reverb" is music adjacent too
+  - "hibiki" is a Japanese word meaning "echo" or "reverberation." This is adjacent to Hibiki's core function: ***echoing*** parts of tablature so you don't have to write them out yourself. Also "reverb" is music adjacent too.
 
