@@ -55,6 +55,8 @@ class Chord:
             return self.symbol[1:-1]
         elif self.non_chord:
             return "N.C."
+        elif self.hammer_into:
+            return self.symbol.split("h")[0]
         else:
             return self.symbol
 

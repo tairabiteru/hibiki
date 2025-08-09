@@ -154,7 +154,13 @@ Using a recall outside of a stanza allows you to declare information without it 
 C     Csus4 C Csus2 C Bb F           C    Csus4 C Csus2 C Bb F
 Night                 falls and I'm alone
 ```
+## Installation
+Hibiki is installed with git and pip, and requires Python >=3.10 to function. After that, it can be installed with this command:
+```
+pip install git+https://github.com/tairabiteru/hibiki.git
+```
 ## Use
+From within Python, Hibiki is mainly interacted with through the `Tab` class.
 ```Python
 import hibiki
 
@@ -169,19 +175,22 @@ tab = hibiki.Tab(src)
 
 print(tab.render())
 ```
-You can also use files:
+There is also a classmethod shortcut for a path to a file:
 ```Python
 tab.from_path("bohemian_rhapsody.hb")
 print(tab.render())
 ```
-Hibiki can also be invoked as a program in and of itself, directly from the command line:
+Hibiki can also be invoked as a program in and of itself, directly from the command line, outputting text to the console:
 ```
-python -m hibiki <somefile.hb>
+python -m hibiki somefile.hb
 ```
-
+You can use redirection to write the output to a file:
+```
+python -m hibiki some_source.hb > my_tabs.txt
+```
 ## FAQ
 - **This seems a lot more complicated than just writing out tabs.**
-  - That's not a question, but fine. I'll elaborate. I realize the intersection of the set of people who play music and the set of all people who program is pretty small, but **I'm** in that intersection, and regarding music, I'd once heard it said,
+  - That's not a question, but fine. I'll elaborate. I realize the intersection of the set of all people who play music and the set of all people who program is pretty small, but **I'm** in that intersection, and regarding music, I'd once heard it said,
 
     **"Music is a game you play with yourself where the second you stop paying attention, you lose."**
 
