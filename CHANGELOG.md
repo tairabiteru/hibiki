@@ -1,3 +1,5 @@
+# 0.3.4
+- Fixed an issue with line numbering.
 # 0.3.3
 - Updated readme.
 - Corrected an issue with Chords when using hammering.
