@@ -1,3 +1,6 @@
+# 0.3.3
+- Updated readme.
+- Corrected an issue with Chords when using hammering.
 # 0.3.2
 - Updated readme.
 - Corrected docstring in `hibiki.StanzaSyntaxError`.
