@@ -88,7 +88,7 @@ class Tab:
                 elif line == "":
                     current_stanza += "\n"
                     in_stanza = False
-                    stanza = Stanza(current_stanza, started_at-1)
+                    stanza = Stanza(current_stanza, started_at)
                     stanzas.append(stanza)
                     current_stanza = ""
                 
