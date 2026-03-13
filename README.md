@@ -11,7 +11,7 @@ took the {G}midnight train goin' {G#m}anywhere{A}(=train)
 {E}  Just a {B}small town girl, {C#m} livin' in a {A}lonely world
 {E}  She (@train)
 {E}  Just a {B}city boy, {C#m} born and raised in {A}South Detroit
-{E}  (@train)
+{E}  He (@train)
 
 [Intro]
 ```
