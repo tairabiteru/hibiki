@@ -1,3 +1,7 @@
+# 1.0.0
+- Switched to a custom lexer parser implementation based on PLY-lex and PLY-yacc.
+- Added the ability to repeat entire stanzas.
+- Changed the character used for recalls from `@` to `*` mirroring pointer syntax. The recall assignment operator (`=`) remains unchanged.
 # 0.3.4
 - Fixed an issue with line numbering.
 # 0.3.3

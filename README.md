@@ -154,6 +154,18 @@ Using a recall outside of a stanza allows you to declare information without it 
 C     Csus4 C Csus2 C Bb F           C    Csus4 C Csus2 C Bb F
 Night                 falls and I'm alone
 ```
+## Theory of Operation
+Hibiki works under the pretense that each chord can be assigned a "lyrical segment." In other words, if we have a string in Hibiki:
+```
+{C}These are some {Am}lyrics
+```
+Each chord can be assigned a string:
+```
+{C} -> "These are some "
+{Am} -> "lyrics"
+```
+It's now pretty easy to see what Hibiki must do in order to produce its "compiled" tabs: Each chord goes immediately above the starting character of the string its assigned to. In practice however, there are lots of edge cases that have to be accounted for. Hibiki also features things like "recall" which allows you to reuse previously defined lines, or even entire sections. These work via "preprocessors" which are functions that are called before the tab is compiled.
+ 
 ## Installation
 Hibiki is installed with git and pip, and requires Python >=3.10 to function. After that, it can be installed with this command:
 ```
@@ -207,4 +219,3 @@ python -m hibiki some_source.hb > my_tabs.txt
     Writing tabs this way will definitely not appeal to everyone, especially those who don't want to lean on any software to write tabs. But to me, the most important aspect of Hibiki is its appeal to ***ME***. If anyone else finds it useful too, cool. Enjoy.
 - **What's the meaning behind the name?**
   - "hibiki" is a Japanese word meaning "echo" or "reverberation." This is adjacent to Hibiki's core function: ***echoing*** parts of tablature so you don't have to write them out yourself. Also "reverb" is music adjacent too.
-

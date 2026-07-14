@@ -26,34 +26,31 @@ class Stanza:
     # Regex denoting what a multiplier (ex (x2)) looks like.
     MULTIPLIER_REGEX = r"\(x\d\)\n"
 
-    def __init__(self, text: str, starting_line: int):
+    def __init__(self, heading: str, text: str, starting_line: int, repeat_count: int=1):
+        self.heading: str = heading
         self.text: str = text
         self.starting_line: int = starting_line
-        self._recalls = {}
+        self.repeat_count: int = repeat_count
 
-    @classmethod
-    def from_match(cls, match: re.Match, starting_line: int) -> Stanza:
-        """Instantiate a stanza from an re.Match"""
-        return cls(match.group(), starting_line)
-    
     @property
     def is_empty(self) -> bool:
         """Shortcut to see if the stanza's body is empty."""
+        print(self.lines)
         return len(self.lines) == 0
-    
+
     @property
     def name(self) -> str:
         """
         The name of the stanza
-        
+
         This is what appears inside of the [brackets].
         """
         return replace_all(
             self.text.split("\n")[0],
-            "[]", 
+            "[]",
             ""
         ).strip()
-    
+
     @property
     def lines(self) -> t.List[Line]:
         """
@@ -89,7 +86,7 @@ class Stanza:
             # Otherwise, we just append the line
             else:
                 out.append(Line(self, line, line_num))
-            
+
             # Finally, increment the line number
             line_num += 1
         return out
@@ -114,10 +111,10 @@ class Space:
 
     def __str__(self) -> str:
         return self.amount * ' '
-    
+
     def __repr__(self) -> str:
         return f"<Space: {self.amount}>"
-    
+
     @property
     def tab_repr(self) -> str:
         # For duck typing when matching a Chord.
@@ -128,7 +125,7 @@ class Space:
 class Line:
     """
     A single line of source text.
-    
+
     Attributes
     ----------
     stanza: Stanza
@@ -142,10 +139,10 @@ class Line:
         self.stanza = stanza
         self.text: str = text
         self.line_num = line_num
-    
+
     def __repr__(self) -> str:
         return f"<Line: {repr(self.text)}>"
-    
+
     def split_chords_and_lyrics(self) -> t.Tuple[t.List[t.Union[Chord, Space]], t.List[str]]:
         """
         Split a line into chords and lyric segments.
@@ -204,7 +201,7 @@ class Line:
                 # This, this is a syntax error.
                 if char == "{":
                     raise ChordSyntaxError(self, f"Invalid chord start character in column {pos}")
-                
+
                 # If we're in a chord and see a }, then the current chord is
                 # ending. So we set in_chord to False and then look up the
                 # parsed chord in the database, appending the resultant object
@@ -217,7 +214,7 @@ class Line:
                 # Otherwise, we continue parsing a new chord.
                 else:
                     current_chord += char
-            
+
             else:
                 # If we're not parsing a chord and we see }, that shouldn't be
                 # possible, so it's a syntax error.
@@ -233,52 +230,53 @@ class Line:
                     # append it to the lyrical segments.
                     if current_lyric:
                         lyrics.append(current_lyric)
-                    
+
                     # Since we're ending a chord, reset current_lyric
                     current_lyric = ""
-                
+
                 # If we're not parsing a chord, then we simply continue parsing
                 # the next lyrical segment.
                 else:
                     current_lyric += char
-            
+
             # Increment column position
             pos += 1
-        
+
         # Now we're out of the for loop, so it should not be possible to be
         # inside of a chord still. If we are, it means a chord has not been
         # properly terminated, which is a syntax error.
         if in_chord is True:
             raise ChordSyntaxError(self, f"Invalid chord start character in column {pos}")
-        
+
         # After parsing, it's possible to have the these buffers contain
         # information. (Not as sure about current_chord, but there may be
         # edge cases I haven't thought of.) We make sure these wind up in the
         # final buffers if they are not empty strings.
         if current_chord != "":
             chords.append(Chord(current_chord))
-        
+
         if current_lyric != "":
             lyrics.append(current_lyric)
-        
+
         # Next weird edge case: len(lyrical segments) > len(chords)
         # This can happen when a chord appears after the first lyric, or when
         # a line with only lyrics appears.
         if len(lyrics) > len(chords):
             chords.insert(0, Space(len(lyrics[0])))
-        
+
         # Weird edge case #3: there's more chords than lyric segments.
         # This happens when a line ends with a lonesome chord. Ex:
         # I have a {Cadd9}pota{Dm}to chip  {Am} <----
-        # To fix this, we just append an empty string to the lyrics.
+        # Or when there are only chords with no lyrics. Ex: {C}{F}{G}
+        # To fix this, we append empty strings to match the chord count.
         if len(chords) > len(lyrics):
-            lyrics.append('')
+            lyrics.extend([''] * (len(chords) - len(lyrics)))
 
         # This must be true.
         assert len(lyrics) == len(chords)
 
         return chords, lyrics
-    
+
     def render_split(self) -> t.Tuple[str, str]:
         """
         Render a single line given its lyrics and chords.
@@ -299,7 +297,7 @@ class Line:
         if isinstance(chords[0], Space):
             chord_line += chords.pop(0).tab_repr
             lyric_line += lyrics.pop(0)
-        
+
         # Loop through chords, but also lyrics too.
         # Because we ensured they must be the same length, it doesn't really
         # matter which one we use.
@@ -312,7 +310,7 @@ class Line:
                 lyric_line += lyrics[i]
                 offset = len(chords[i].tab_repr) - len(lyrics[i])
                 lyric_line += " " * offset
-            
+
             # Second, if the lyrical segment is longer than the chord's symbol,
             # we basically do the opposite, instead appending spaces to the
             # chord line.
@@ -321,15 +319,15 @@ class Line:
                 chord_line += chords[i].tab_repr
                 offset = len(lyrics[i]) - len(chords[i].tab_repr)
                 chord_line += " " * offset
-            
+
             # The only remaining case is that they are equal. In which case,
             # all is good in the world. :)
             else:
                 chord_line += chords[i].tab_repr
                 lyric_line += lyrics[i]
-        
+
         return chord_line.rstrip(), lyric_line.rstrip()
-    
+
     def render(self) -> str:
         # This function mainly serves as a shortcut to render chords and lines
         # together.
