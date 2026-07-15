@@ -38,6 +38,14 @@ class TestRepeats:
         # The recall should only appear once, not repeated
         assert stanzas[2].repeat_count == 1
 
+    def test_stanza_repeat_during_recall(self):
+        text = "[Chorus]\nChorus content\n\n[Chorus] (x2)\n\n"
+        parser = HibikiParser()
+        stanzas = parser.parse(text)
+
+        assert len(stanzas) == 3
+        assert stanzas[1].repeat_count == 2
+
     def test_multiple_lines_with_different_repeats(self):
         """Test multiple lines with different repeat counts."""
         text = "[Verse]\nLine 1 (x2)\nLine 2 (x3)\n\n"

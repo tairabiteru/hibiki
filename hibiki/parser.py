@@ -112,7 +112,7 @@ class HibikiParser:
             if stanza.is_empty:
                 try:
                     saved_stanza = saved[stanza.heading]
-                    stanzas[i] = Stanza(saved_stanza.heading, saved_stanza.text, saved_stanza.starting_line, repeat_count=1)
+                    stanzas[i] = Stanza(saved_stanza.heading, saved_stanza.text, saved_stanza.starting_line, repeat_count=stanza.repeat_count)
                 except KeyError:
                     # If we get here, it means no saved stanza was found for this heading.
                     raise EmptyStanza(stanza)

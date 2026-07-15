@@ -4,9 +4,14 @@ Lexer for the Hibiki Language.
 Lexer is based on PLY (Python Lex-Yacc) and tokenizes via regular expressions.
 """
 from __future__ import annotations
-import re
-
 import ply.lex as lex
+import re
+import sys
+
+
+# More descriptive error for optimization
+if sys.flags.optimize > 1:
+    raise RuntimeError("Optimization level too high. The executing script cannot use the -OO flag, as it removes docstrings, which the Hibiki lexer relies on to work.")
 
 
 tokens = (

@@ -1,3 +1,6 @@
+# 1.0.1
+- Fixed an issue which prevented stanza repetition if the stanza was being recalled.
+- Added in a more descriptive error instructing users they cannot run the lexer with the -OO flag as PLY relies on docstrings to work.
 # 1.0.0
 - Switched to a custom lexer parser implementation based on PLY-lex and PLY-yacc.
 - Added the ability to repeat entire stanzas.
