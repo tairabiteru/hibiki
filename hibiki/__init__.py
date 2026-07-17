@@ -3,10 +3,10 @@ from .errors import HibikiError, EmptyStanza, RedefinedStanza, UndefinedRecall
 from .stanza import Stanza, Space, Line
 from .lexer import hibiki_lexer
 from .parser import HibikiParser
-from .renderer import HibikiRenderer
+from .renderer import HibikiRenderer, render, render_file
 
 
-__VERSION__ = "1.0.1"
+__VERSION__ = "1.0.2"
 __AUTHOR__ = "taira"
 
 
@@ -14,7 +14,7 @@ __all__ = [
     Chord,
     HibikiError, EmptyStanza, RedefinedStanza, UndefinedRecall,
     Stanza, Space, Line,
-    HibikiRenderer,
+    HibikiRenderer, render, render_file,
     HibikiParser,
     hibiki_lexer,
     __VERSION__,

@@ -77,3 +77,14 @@ class HibikiRenderer:
             output += "\n" * self.breaks_between_sections
 
         return output
+
+
+def render(input: str, renderer: type[HibikiRenderer]=HibikiRenderer) -> str:
+    return renderer().render(input)
+
+
+def render_file(path: str, renderer: type[HibikiRenderer]=HibikiRenderer) -> str:
+    with open(path, "r") as infile:
+        src = infile.read()
+
+    return render(src, renderer=renderer)

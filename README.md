@@ -172,7 +172,7 @@ Hibiki is installed with git and pip, and requires Python >=3.10 to function. Af
 pip install git+https://github.com/tairabiteru/hibiki.git
 ```
 ## Use
-From within Python, Hibiki is mainly interacted with through the `Tab` class.
+From within Python, Hibiki can be run via the `render` function:
 ```Python
 import hibiki
 
@@ -183,14 +183,11 @@ src = """[Intro]
 No e{A#}scape from reality
 """
 
-tab = hibiki.Tab(src)
-
-print(tab.render())
+print(hibiki.render(src))
 ```
-There is also a classmethod shortcut for a path to a file:
+There is also `render_path` which acts as a shortcut for rendering a file:
 ```Python
-tab.from_path("bohemian_rhapsody.hb")
-print(tab.render())
+print(hibiki.render_file("bohemian_rhapsody.hb"))
 ```
 Hibiki can also be invoked as a program in and of itself, directly from the command line, outputting text to the console:
 ```
@@ -209,7 +206,7 @@ python -m hibiki some_source.hb > my_tabs.txt
     As it happens, I'm really bad at paying attention. Thusly, having neat and tidy tabs is ***SUPER*** important to me. The level of control I want over my tabs is far above what any pre-built solution I've seen out there can provide, and...well, "If'n ya ain't got the right tool for the job, you're gonna might have to need to make 'er!"
 
     Thus, Hibiki as a concept was born.
-- **So you made your own quasi-tokenizer just to write musical tabs?**
+- **So you made your own lexer and parser just to write musical tabs?**
   - Yeah, pretty much.
 
     I mean, there's slightly more to it that that: I believe the number one ingredient in success is passion. To skip the poetry, I want to be good at playing the ukulele. To get good, it is my belief that I have to *WANT* it. Obviously, but the realm of "wanting it" doesn't stop at the act itself. Taking steps to do things which *encourage me* to practice is also important. 
@@ -218,4 +215,4 @@ python -m hibiki some_source.hb > my_tabs.txt
 
     Writing tabs this way will definitely not appeal to everyone, especially those who don't want to lean on any software to write tabs. But to me, the most important aspect of Hibiki is its appeal to ***ME***. If anyone else finds it useful too, cool. Enjoy.
 - **What's the meaning behind the name?**
-  - "hibiki" is a Japanese word meaning "echo" or "reverberation." This is adjacent to Hibiki's core function: ***echoing*** parts of tablature so you don't have to write them out yourself. Also "reverb" is music adjacent too.
+  - "hibiki" is a Japanese word meaning "echo" or "reverberation." This is adjacent to Hibiki's core function: ***echoing*** parts of tablature so you don't have to write them out yourself.

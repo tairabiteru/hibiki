@@ -1,4 +1,4 @@
-from hibiki import HibikiRenderer
+from hibiki import render_file
 import sys
 
 
@@ -8,11 +8,7 @@ def main() -> int:
         return 1
 
     try:
-        with open(sys.argv[1], "r") as source_file:
-            source = source_file.read()
-
-        output = HibikiRenderer().render(source)
-        print(output)
+        print(render_file(sys.argv[1]))
         return 0
     except FileNotFoundError:
         print(f"'{sys.argv[1]}' file does not exist.")

@@ -35,7 +35,6 @@ class Stanza:
     @property
     def is_empty(self) -> bool:
         """Shortcut to see if the stanza's body is empty."""
-        print(self.lines)
         return len(self.lines) == 0
 
     @property

@@ -1,3 +1,8 @@
+# 1.0.2
+- Updated README.md.
+- Removed errant print statement from debugging.
+- Added `render()` shortcut function.
+- Added `render_file()` shortcut function.
 # 1.0.1
 - Fixed an issue which prevented stanza repetition if the stanza was being recalled.
 - Added in a more descriptive error instructing users they cannot run the lexer with the -OO flag as PLY relies on docstrings to work.
