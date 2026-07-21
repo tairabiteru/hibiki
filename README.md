@@ -9,9 +9,9 @@ took the {G}midnight train goin' {G#m}anywhere{A}(=train)
 
 [Verse 1]
 {E}  Just a {B}small town girl, {C#m} livin' in a {A}lonely world
-{E}  She (@train)
+{E}  She (*train)
 {E}  Just a {B}city boy, {C#m} born and raised in {A}South Detroit
-{E}  He (@train)
+{E}  He *train)
 
 [Intro]
 ```
@@ -131,7 +131,7 @@ Hibiki also has a powerful feature called **recall**. This allows individual lin
 {C}I'm {Am}a recall!(=a_line)
 
 [Outro]
-Remember me? (@a_line)
+Remember me? (*a_line)
 ```
 ```
 [Intro]
@@ -147,7 +147,7 @@ Using a recall outside of a stanza allows you to declare information without it 
 {Csus4} {C} {Csus2} {C}(=chords)
 
 [Verse 1]
-{C}Night (@chords) {Bb}fal{F}ls and I'm a{C}lone (@chords) {Bb} {F}
+{C}Night (*chords) {Bb}fal{F}ls and I'm a{C}lone (*chords) {Bb} {F}
 ```
 ```
 [Verse 1]

@@ -1,3 +1,6 @@
+# 1.0.3
+- Corrected clerical errors in README.md.
+- Corrected issues with line numbering in errors.
 # 1.0.2
 - Updated README.md.
 - Removed errant print statement from debugging.

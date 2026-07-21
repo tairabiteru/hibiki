@@ -24,7 +24,7 @@ tokens = (
 
 # The heading of a stanza
 def t_HEADING(t):
-    r'\[[^\]]+\](?:\s*\(\s*x\s*\d+\s*\))?\s*\n'
+    r'\[[^\]]+\](?:\s*\(\s*x\s*\d+\s*\))?[ \t]*\n'
 
     raw = t.value.strip('\n').strip()
 

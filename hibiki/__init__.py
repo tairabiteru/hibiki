@@ -6,7 +6,7 @@ from .parser import HibikiParser
 from .renderer import HibikiRenderer, render, render_file
 
 
-__VERSION__ = "1.0.2"
+__VERSION__ = "1.0.3"
 __AUTHOR__ = "taira"
 
 

@@ -216,6 +216,8 @@ class HibikiParser:
                     self.current_repeat_count = repeat_count
                     self.current_stanza_text = f"[{heading}]\n"
                     self.current_stanza_line = self.line_num
+                    # HEADING includes a newline, so next token is on the next line
+                    self.line_num += 1
 
                 elif tok.type == 'NEWLINE':
                     # Handle line breaks
@@ -234,13 +236,11 @@ class HibikiParser:
                     # Add chord with braces restored
                     if self.current_heading is not None:
                         self.current_stanza_text += f"{{{tok.value}}}"
-                    self.line_num += 1
 
                 else:
                     # Add other token content (FRAGMENT)
                     if self.current_heading is not None:
                         self.current_stanza_text += tok.value
-                    self.line_num += 1
         except SyntaxError as e:
             # Convert chord-related syntax errors to ChordSyntaxError
             if '{' in str(e) or '}' in str(e):
